@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import _ from 'lodash';
+import { getRandomColors } from '../utils/Random';
 import Triangles, { TriangleProps } from './Triangles';
-import { getRandomColors } from '../Utils/Random';
 
 const TriangleSelector = () => {
 	const currentDate = useMemo(() => new Date(), []);
