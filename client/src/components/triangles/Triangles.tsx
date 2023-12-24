@@ -22,25 +22,20 @@ type Props = {
 };
 
 const Triangles = ({ triangles }: Props) => {
-	const defaultMultiplier = 1;
-	const expandedMultiplier = 50;
-	const [sizeMultiplier, setSizeMultiplier] = useState<number>(defaultMultiplier);
+	const [expandedIndex, setExpandedIndex] = useState<number>(-1);
 
 	return (
 		<TrianglesContainer>
 			{_.map(triangles, (triangle, index) => (
 				<Triangle
 					key={triangle.id}
-					id={triangle.id}
 					text={triangle.text}
-					sizeMultiplier={sizeMultiplier}
 					backgroundColor={triangle.color}
+					expanded={expandedIndex === index}
 					disabled={triangle.disabled}
 					index={index}
 					onClick={(event) => {
-						setSizeMultiplier(
-							sizeMultiplier === defaultMultiplier ? expandedMultiplier : defaultMultiplier
-						);
+						setExpandedIndex(expandedIndex === index ? -1 : index);
 						triangle.onClick(event);
 					}}
 				/>
