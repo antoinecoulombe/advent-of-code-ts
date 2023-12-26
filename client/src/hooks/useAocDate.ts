@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { getRandomColors } from '../components/utils/Random';
 
 const useAocDate = () => {
 	const currentDate = useMemo(() => new Date(), []);
@@ -14,14 +13,11 @@ const useAocDate = () => {
 	}, [currentYear]);
 	const yearsArray = Array.from({ length: yearsSinceStart }, (_, i) => firstAocYear + i) || [];
 
-	const yearsColors = getRandomColors(yearsSinceStart);
-
 	const yearHasAoc = (year: number) =>
 		(year === currentYear && currentMonth < 11) || year < firstAocYear || year > currentYear;
 
 	return {
 		yearsArray,
-		yearsColors,
 		yearHasAoc,
 	};
 };
