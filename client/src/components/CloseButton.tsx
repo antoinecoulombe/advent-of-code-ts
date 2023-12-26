@@ -6,19 +6,21 @@ const size = 30,
 	thickness = 5;
 
 const ButtonContainer = styled.div`
+	display: block;
 	position: absolute;
 	top: ${size / 2}px;
 	right: ${size / 2}px;
 	width: ${size * 2}px;
 	height: ${size * 2}px;
 
+	&:not(.disabled) {
+		cursor: pointer;
+	}
+
 	opacity: 0.5;
 	&:hover {
 		opacity: 1;
-	}
 
-	&:hover,
-	&:focus {
 		> button {
 			transform: rotateZ(90deg);
 		}
@@ -43,9 +45,7 @@ const ButtonStyled = styled.button`
 	align-items: center;
 	transition: all 150ms;
 
-	&:not(.disabled) {
-		cursor: pointer;
-	}
+	pointer-events: none;
 `;
 
 const CloseIcon = styled.span<{ iconColor?: string }>`
