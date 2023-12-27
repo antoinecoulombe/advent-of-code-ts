@@ -1,3 +1,5 @@
+// PART 1
+
 const deers = [{
     name: 'Rudolph',
     speed: 22,
@@ -76,3 +78,5 @@ const maxDistance = Math.max(...totals.map(total => total.distance));
 const furthest = totals.find(total => total.distance === maxDistance);
 
 console.log(furthest);
+
+// PART 2
