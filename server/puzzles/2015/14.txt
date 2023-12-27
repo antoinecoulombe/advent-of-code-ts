@@ -1,0 +1,78 @@
+const deers = [{
+    name: 'Rudolph',
+    speed: 22,
+    duration: 8,
+    rest: 165
+  },
+  {
+    name: 'Cupid',
+    speed: 8,
+    duration: 17,
+    rest: 114
+  },
+  {
+    name: 'Prancer',
+    speed: 18,
+    duration: 6,
+    rest: 103
+  },
+  {
+    name: 'Donner',
+    speed: 25,
+    duration: 6,
+    rest: 145
+  },
+  {
+    name: 'Dasher',
+    speed: 11,
+    duration: 12,
+    rest: 125
+  },
+  {
+    name: 'Comet',
+    speed: 21,
+    duration: 6,
+    rest: 121
+  },
+  {
+    name: 'Blitzen',
+    speed: 18,
+    duration: 3,
+    rest: 50
+  },
+  {
+    name: 'Vixen',
+    speed: 20,
+    duration: 4,
+    rest: 75
+  },
+  {
+    name: 'Dancer',
+    speed: 7,
+    duration: 20,
+    rest: 119
+  }
+];
+
+const totals = [];
+
+const time = 2503;
+
+deers.forEach(dear => {
+	const totalLength = dear.duration + dear.rest;
+  const totalMoves = time / totalLength;
+  const flooredMoves = Math.floor(totalMoves);
+  const diffMoves = Math.round((totalMoves - flooredMoves) * totalLength); 
+  let totalDistance = Math.floor(totalMoves) * dear.speed * dear.duration;
+  console.log(totalLength, totalMoves, flooredMoves, diffMoves, totalDistance);
+  if (diffMoves > 0) {
+  	const additionalMoves = diffMoves < dear.duration ? diffMoves : dear.duration;
+    totalDistance += additionalMoves * dear.speed;
+  }
+  totals.push({name: dear.name, distance: totalDistance});
+});
+
+const maxDistance = Math.max(...totals.map(total => total.distance));
+const furthest = totals.find(total => total.distance === maxDistance);
+
+console.log(furthest);
