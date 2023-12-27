@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { getContrastTextColor } from '../utils/Colors';
 
 export const defaultSize = 100;
 
@@ -11,15 +12,15 @@ export const SquareStyled = styled.div<{
 	display: block;
 	width: ${expanded ? '100%' : `${defaultSize}px`};
 	height: ${expanded ? '100%' : `${defaultSize}px`};
-  background-color: #${disabled ? '575757' : backgroundColor};
+  background-color: ${disabled ? '#575757' : backgroundColor};
 
 	font-size: 16px;
-	font-family: arial;
-	font-weight: 500;
+	font-family: Arvo;
+	font-weight: 800;
 
 	text-align: center;
   line-height: ${defaultSize}px;
-	color: ${disabled ? 'gray' : 'white'};
+	color: ${disabled ? 'gray' : getContrastTextColor(backgroundColor)};
 
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -29,10 +30,10 @@ export const SquareStyled = styled.div<{
 
 	transition: 100ms linear;
 
-  opacity: 0.8;
+  opacity: ${expanded ? 0.8 : 0.55};
 
   &:hover {
-    opacity: ${expanded || disabled ? 0.8 : 1};
+    opacity: ${disabled ? 0.55 : expanded ? 0.8 : 1};
   }
 `
 );

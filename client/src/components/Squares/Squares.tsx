@@ -8,8 +8,21 @@ const SquaresContainer = styled.div<{ width: number; height: number }>`
 	position: absolute;
 	width: ${(props) => props.width}px;
 	height: ${(props) => props.height}px;
-	top: calc(50% - ${(props) => props.height / 2}px);
-	left: calc(50% - ${(props) => props.width / 2}px);
+	top: calc(50% - ${(props) => (props.height + 30) / 2}px);
+	left: calc(50% - ${(props) => (props.width + 30) / 2}px);
+
+	&:not(.active) {
+		background-color: #7f888d;
+		border: 15px solid #7f888d;
+		overflow-y: auto;
+
+		-ms-overflow-style: none; /* Internet Explorer 10+ */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	&:not(.active)::-webkit-scrollbar {
+		display: none; /* Safari and Chrome */
+	}
 
 	&.active {
 		position: fixed;

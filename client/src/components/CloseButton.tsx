@@ -17,7 +17,7 @@ const ButtonContainer = styled.div`
 		cursor: pointer;
 	}
 
-	opacity: 0.5;
+	opacity: 0.4;
 	&:hover {
 		opacity: 1;
 
@@ -64,7 +64,7 @@ const CloseIcon = styled.span<{ iconColor?: string }>`
 		left: 0;
 		right: 0;
 		height: ${thickness}px;
-		background: ${(props) => (props.iconColor ? `#${props.iconColor}` : 'grey')};
+		background: ${(props) => props.iconColor ?? 'grey'};
 		border-radius: ${thickness}px;
 	}
 

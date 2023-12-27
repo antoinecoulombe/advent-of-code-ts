@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import _ from 'lodash';
 import Squares, { SquareProps } from './Squares/Squares';
-import { getRandomColors } from './utils/Random';
+import { getRandomColors } from './utils/Colors';
 import { defaultSize } from './Squares/SquareStyled';
 import useSquareDimensions from '../hooks/useSquareDimensions';
 import useAocDate from '../hooks/useAocDate';
@@ -10,6 +10,7 @@ const YearSelector = () => {
 	const { yearsArray, yearHasAoc } = useAocDate();
 	const { containerDimensions, squaresPerRow } = useSquareDimensions({
 		squaresCount: yearsArray.length,
+		squaresPadding: 30,
 		squareWidth: defaultSize,
 		maxWidthPercent: 0.5,
 	});

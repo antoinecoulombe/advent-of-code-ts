@@ -4,28 +4,35 @@ import useWindowDimensions from './useWindowDimensions';
 type Props = {
 	squareWidth: number;
 	squaresCount: number;
+	squaresPadding?: number;
 	maxWidthPercent?: number;
 };
 
-const useSquareDimensions = ({ maxWidthPercent, squareWidth, squaresCount }: Props) => {
+const useSquareDimensions = ({
+	maxWidthPercent,
+	squareWidth,
+	squaresCount,
+	squaresPadding,
+}: Props) => {
 	const windowDimensions = useWindowDimensions();
 	const maxDimensions = useMemo(
 		() => ({
 			width: windowDimensions.width * (maxWidthPercent ?? 1),
-			height: windowDimensions.height,
+			height: windowDimensions.height - (squaresPadding ?? 0),
 		}),
-		[maxWidthPercent, windowDimensions.height, windowDimensions.width]
+		[maxWidthPercent, squaresPadding, windowDimensions.height, windowDimensions.width]
 	);
 	const squaresPerRow = useMemo(
-		() => Math.floor(maxDimensions.width / squareWidth),
+		() => Math.floor(maxDimensions.width / squareWidth) || 1,
 		[maxDimensions.width, squareWidth]
 	);
 	const actualDimensions = useMemo(() => {
 		const width =
 			squaresCount < squaresPerRow ? squaresCount * squareWidth : squaresPerRow * squareWidth;
-		const height = Math.ceil(squaresCount / squaresPerRow) * squareWidth;
+		let height = Math.ceil(squaresCount / squaresPerRow) * squareWidth;
+		if (height > maxDimensions.height) height = maxDimensions.height;
 		return { width, height };
-	}, [squareWidth, squaresCount, squaresPerRow]);
+	}, [maxDimensions.height, squareWidth, squaresCount, squaresPerRow]);
 
 	return { squaresPerRow, containerDimensions: actualDimensions };
 };
