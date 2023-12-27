@@ -30,10 +30,10 @@ export const SquareStyled = styled.div<{
 
 	transition: 100ms linear;
 
-  opacity: ${expanded ? 0.8 : 0.55};
+  opacity: ${expanded ? 1 : 0.55};
 
   &:hover {
-    opacity: ${disabled ? 0.55 : expanded ? 0.8 : 1};
+    opacity: ${disabled ? 0.55 : 1};
   }
 `
 );

@@ -24,9 +24,10 @@ type Props = {
 	text: string;
 	backgroundColor: string;
 	onClick: (event: MouseEvent) => void;
+	onCancel: (event: MouseEvent) => void;
 };
 
-const Square = ({ expanded, disabled, backgroundColor, text, onClick }: Props) => {
+const Square = ({ expanded, disabled, backgroundColor, text, onClick, onCancel }: Props) => {
 	return (
 		<SquareContainer className={classNames({ square: true, active: expanded })}>
 			<SquareStyled
@@ -35,7 +36,7 @@ const Square = ({ expanded, disabled, backgroundColor, text, onClick }: Props) =
 				backgroundColor={backgroundColor}
 				onClick={disabled || expanded ? undefined : onClick}
 			>
-				{expanded ? <CloseButton onClick={onClick} iconColor={backgroundColor} /> : text}
+				{expanded ? <CloseButton onClick={onCancel} iconColor={backgroundColor} /> : text}
 			</SquareStyled>
 		</SquareContainer>
 	);

@@ -10,10 +10,11 @@ const SquaresContainer = styled.div<{ width: number; height: number }>`
 	height: ${(props) => props.height}px;
 	top: calc(50% - ${(props) => (props.height + 30) / 2}px);
 	left: calc(50% - ${(props) => (props.width + 30) / 2}px);
+	pointer-events: all;
 
 	&:not(.active) {
-		background-color: #7f888d;
-		border: 15px solid #7f888d;
+		padding: 15px;
+		background-color: rgba(255, 255, 255, 0.35);
 		overflow-y: auto;
 
 		-ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -42,9 +43,10 @@ const SquaresContainer = styled.div<{ width: number; height: number }>`
 export type SquareProps = {
 	id: string;
 	text: string;
-	disabled: boolean;
 	backgroundColor: string;
-	onClick: (event: MouseEvent) => void;
+	disabled?: boolean;
+	onClick?: (event: MouseEvent) => void;
+	onCancel?: (event: MouseEvent) => void;
 };
 
 type Props = {
@@ -68,10 +70,14 @@ const Squares = ({ squares, width, height }: Props) => {
 					text={square.text}
 					backgroundColor={square.backgroundColor}
 					expanded={expandedIndex === index}
-					disabled={square.disabled}
+					disabled={square.disabled ?? false}
 					onClick={(event) => {
-						setExpandedIndex(expandedIndex === index ? -1 : index);
-						square.onClick(event);
+						setExpandedIndex(index);
+						square.onClick?.(event);
+					}}
+					onCancel={(event) => {
+						setExpandedIndex(-1);
+						square.onCancel?.(event);
 					}}
 				/>
 			)) || null}
