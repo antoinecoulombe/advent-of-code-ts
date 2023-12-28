@@ -28,6 +28,7 @@ const DaySelector = ({ year, onClick }: Props) => {
 		squaresCount: daysArray.length,
 		squaresPadding: 30,
 		maxWidthPercent: 0.7,
+		maxWidthPxAbsolute: 530,
 	});
 	const daysColor = useMemo(
 		() => getRandomColors(daysArray.length, squaresPerRow),

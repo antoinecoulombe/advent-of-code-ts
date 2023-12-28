@@ -6,10 +6,27 @@ type Props = {
 	squaresCount: number;
 	squaresPadding?: number;
 	maxWidthPercent?: number;
+	maxWidthPxAbsolute?: number;
+};
+
+const getMaxWidth = (
+	windowWidth: number,
+	maxWidthPercent?: number,
+	maxWidthPxAbsolute?: number,
+	padding?: number
+) => {
+	if (maxWidthPercent === undefined) maxWidthPercent = 1;
+	if (padding === undefined) padding = 0;
+	const width = windowWidth * maxWidthPercent;
+	if (maxWidthPxAbsolute !== undefined && width > maxWidthPxAbsolute) {
+		return maxWidthPxAbsolute;
+	}
+	return width - padding;
 };
 
 const useSquareDimensions = ({
 	maxWidthPercent,
+	maxWidthPxAbsolute,
 	squareWidth,
 	squaresCount,
 	squaresPadding,
@@ -17,10 +34,21 @@ const useSquareDimensions = ({
 	const windowDimensions = useWindowDimensions();
 	const maxDimensions = useMemo(
 		() => ({
-			width: windowDimensions.width * (maxWidthPercent ?? 1),
+			width: getMaxWidth(
+				windowDimensions.width,
+				maxWidthPercent,
+				maxWidthPxAbsolute,
+				squaresPadding
+			),
 			height: windowDimensions.height - (squaresPadding ?? 0),
 		}),
-		[maxWidthPercent, squaresPadding, windowDimensions.height, windowDimensions.width]
+		[
+			maxWidthPercent,
+			maxWidthPxAbsolute,
+			squaresPadding,
+			windowDimensions.height,
+			windowDimensions.width,
+		]
 	);
 	const squaresPerRow = useMemo(
 		() => Math.floor(maxDimensions.width / squareWidth) || 1,
