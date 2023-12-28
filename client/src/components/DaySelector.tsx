@@ -6,9 +6,11 @@ import { defaultSize } from './Squares/SquareStyled';
 import useSquareDimensions from '../hooks/useSquareDimensions';
 import useAocDate from '../hooks/useAocDate';
 import styled from '@emotion/styled';
+import { Puzzle } from './PuzzleViewer';
 
 type Props = {
 	year: number;
+	onClick: (puzzle: Puzzle | null) => void;
 };
 
 const DaysContainer = styled.div`
@@ -19,7 +21,7 @@ const DaysContainer = styled.div`
 	pointer-events: none;
 `;
 
-const DaySelector = ({ year }: Props) => {
+const DaySelector = ({ year, onClick }: Props) => {
 	const { daysArray, dayHasAoc } = useAocDate();
 	const { containerDimensions, squaresPerRow } = useSquareDimensions({
 		squareWidth: defaultSize,
@@ -32,15 +34,18 @@ const DaySelector = ({ year }: Props) => {
 		[squaresPerRow, daysArray.length]
 	);
 
-	const handleClick = useCallback((day: number) => {
-		// fetch problem info from server
-		// call parent to show another component containing:
-		//  - The puzzle explication
-		//  - The puzzle code, if available
-		//  - The amount of stars completed (0, 1 or 2)
-		//  - The answers for each star
-		//  - A link to the Aoc puzzle
-	}, []);
+	const handleClick = useCallback(
+		(day: number | null) => {
+			if (!day) {
+				onClick(null);
+				return;
+			}
+
+			// TODO: fetch problem info from server
+			onClick({ year, day, input: 'blabla', answers: {}, description: {} });
+		},
+		[onClick, year]
+	);
 
 	const days: SquareProps[] = useMemo(
 		() =>
@@ -50,6 +55,7 @@ const DaySelector = ({ year }: Props) => {
 				backgroundColor: daysColor[index],
 				disabled: !dayHasAoc(year, day),
 				onClick: () => handleClick(day),
+				onCancel: () => handleClick(null),
 			})),
 		[daysArray, daysColor, dayHasAoc, year, handleClick]
 	);

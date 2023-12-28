@@ -20,7 +20,7 @@ const useAocDate = () => {
 	const dayHasAoc = (year: number, day: number) =>
 		(year === currentYear && currentDay >= day) || (year < currentYear && year >= firstAocYear);
 
-	const daysArray = Array.from({ length: 31 }, (_, i) => i + 1) || [];
+	const daysArray = Array.from({ length: 25 }, (_, i) => i + 1) || [];
 
 	return {
 		daysArray,
