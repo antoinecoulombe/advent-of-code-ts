@@ -1,7 +1,7 @@
 import ts from 'typescript';
 import express from 'express';
-import { fileExists, readFile } from './FileHandler';
-import { isDayValid, isNumeric, isPartValid, isYearValid } from './Validation';
+import { fileExists, readFile } from './FileHandler.js';
+import { isDayValid, isNumeric, isPartValid, isYearValid } from './Validation.js';
 
 const app = express();
 
@@ -16,7 +16,9 @@ app.get('/solve/:year/:day/:part', async (req, res) => {
 		!isYearValid(year) ||
 		!isDayValid(year, day) ||
 		!isPartValid(part) ||
-		!(await fileExists((solutionsPath = `${__dirname}/puzzles/${year}/${day}/solutions.ts`)))
+		!(await fileExists(
+			(solutionsPath = `${process.env.DIR_NAME}/puzzles/${year}/${day}/solutions.ts`)
+		))
 	) {
 		sendPuzzleNotFound(year, day, res);
 		console.log('shit', solutionsPath);

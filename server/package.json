@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"compile": "tsc && node app.js",
+		"compile": "tsc && node src/server.js",
 		"dev": "nodemon --watch src/ --exec \"yarn compile\" --verbose -e ts"
 	},
 	"dependencies": {
