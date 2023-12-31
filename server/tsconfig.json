@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"module": "ESNext",
+		"esModuleInterop": true,
+		"target": "ES6",
+		"moduleResolution": "Node",
+		"outDir": "dist",
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"isolatedModules": false,
+		"strict": true,
+		"noImplicitAny": true,
+		"inlineSourceMap": true
+	},
+	"lib": ["esnext"],
+	"exclude": ["node_modules"]
+}
