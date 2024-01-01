@@ -108,12 +108,12 @@ const race = () => {
 	}
 };
 
-export const part1 = () => {
+const part1 = () => {
 	race();
 	return getMax(deers, 'totalDistance');
 };
 
-export const part2 = () => {
+const part2 = () => {
 	race();
 	return getMax(deers, 'stars');
 };

@@ -1,5 +1,6 @@
 import ts from 'typescript';
 import express from 'express';
+import 'dotenv/config';
 import { fileExists, readFile } from './FileHandler.js';
 import { isDayValid, isNumeric, isPartValid, isYearValid } from './Validation.js';
 
@@ -17,7 +18,7 @@ app.get('/solve/:year/:day/:part', async (req, res) => {
 		!isDayValid(year, day) ||
 		!isPartValid(part) ||
 		!(await fileExists(
-			(solutionsPath = `${process.env.DIR_NAME}/puzzles/${year}/${day}/solutions.ts`)
+			(solutionsPath = `${process.env.DIR_NAME}/src/puzzles/${year}/${day}/solutions.js`)
 		))
 	) {
 		sendPuzzleNotFound(year, day, res);
@@ -25,9 +26,7 @@ app.get('/solve/:year/:day/:part', async (req, res) => {
 		return;
 	}
 
-	const solutionsTSCode = await readFile(solutionsPath);
-	const solutionsJSCode = ts.transpile(solutionsTSCode!);
-	const result = eval(solutionsJSCode! + `part${part}();`);
+	const result = eval((await readFile(solutionsPath))! + `part${part}();`);
 	res.json(result);
 });
 
