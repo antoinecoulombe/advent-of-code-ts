@@ -25,8 +25,13 @@ app.get('/solve/:year/:day/:part', async (req, res) => {
 		return;
 	}
 
-	const result = eval((await readFile(solutionsPath))! + `part${part}();`);
-	res.json(result);
+	try {
+		const result = eval((await readFile(solutionsPath))! + `part${part}();`);
+		res.json(result);
+	} catch (err) {
+		console.log(err);
+		sendPuzzleNotFound(year, day, part, res);
+	}
 });
 
 app.listen(port, () => {
