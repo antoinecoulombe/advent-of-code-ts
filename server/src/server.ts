@@ -1,4 +1,3 @@
-import ts from 'typescript';
 import express from 'express';
 import 'dotenv/config';
 import { fileExists, readFile } from './FileHandler.js';
