@@ -21,8 +21,7 @@ app.get('/solve/:year/:day/:part', async (req, res) => {
 			(solutionsPath = `${process.env.DIR_NAME}/src/puzzles/${year}/${day}/solutions.js`)
 		))
 	) {
-		sendPuzzleNotFound(year, day, res);
-		console.log('shit', solutionsPath);
+		sendPuzzleNotFound(year, day, part, res);
 		return;
 	}
 
@@ -34,10 +33,10 @@ app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
 });
 
-const sendPuzzleNotFound = (year: any, day: any, res: any) => {
+const sendPuzzleNotFound = (year: any, day: any, part: any, res: any) => {
 	let err = `The puzzle at the specified date was not found.`;
-	if (isNumeric(year) && isNumeric(day)) {
-		err = `The puzzle on day '${day}' of year '${year}' was not found.`;
+	if (isNumeric(year) && isNumeric(day) && isNumeric(part)) {
+		err = `The the puzzle '${part}' of date '${day}-12-${year}' was not found.`;
 	}
 	res.status(404).json({ status: 404, errors: [err] });
 };
