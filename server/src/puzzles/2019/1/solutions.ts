@@ -1,4 +1,4 @@
-const puzzle_2023_1 = (part: number) => {
+const puzzle_2019_1 = (part: number) => {
 	const part1 = () => {
 		return '1';
 	};
