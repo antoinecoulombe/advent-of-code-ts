@@ -25,7 +25,7 @@ app.get('/solve/:year/:day/:part', async (req, res) => {
 	}
 
 	try {
-		const result = eval((await readFile(solutionsPath))! + `puzzle_${year}_${day}(${part});`);
+		const result = await eval((await readFile(solutionsPath))! + `puzzle_${year}_${day}(${part});`);
 		res.json(result);
 	} catch (err) {
 		console.log(err);

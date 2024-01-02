@@ -29,3 +29,7 @@ const getFileLines = async (path: string): Promise<string[] | null> => {
 	const fileContent = await readFile(path);
 	return fileContent?.split('\n') || null;
 };
+
+export const getInputLines = async (year: number, day: number) => {
+	return '';
+};
