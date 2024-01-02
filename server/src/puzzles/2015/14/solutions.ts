@@ -12,7 +12,7 @@ const puzzle_2015_14 = async (part: number) => {
 		remainingRest?: number;
 	};
 
-	const deers: Deer[] = [
+	const input: Deer[] = [
 		{
 			name: 'Rudolph',
 			speed: 22,
@@ -70,7 +70,7 @@ const puzzle_2015_14 = async (part: number) => {
 	];
 
 	const initDeers = () => {
-		deers.forEach((deer) => {
+		input.forEach((deer) => {
 			deer.totalDistance = 0;
 			deer.remainingDuration = deer.duration;
 			deer.remainingRest = deer.rest;
@@ -91,7 +91,7 @@ const puzzle_2015_14 = async (part: number) => {
 	const race = () => {
 		initDeers();
 		for (let i = 0; i < RACE_DURATION; ++i) {
-			deers.forEach((deer) => {
+			input.forEach((deer) => {
 				if (deer.remainingDuration! > 0) {
 					deer.totalDistance! += deer.speed;
 					--deer.remainingDuration!;
@@ -104,19 +104,19 @@ const puzzle_2015_14 = async (part: number) => {
 				}
 			});
 
-			const furthest = getMax(deers, 'totalDistance');
+			const furthest = getMax(input, 'totalDistance');
 			++furthest.stars!;
 		}
 	};
 
 	const part1 = async () => {
 		race();
-		return getMax(deers, 'totalDistance');
+		return getMax(input, 'totalDistance');
 	};
 
 	const part2 = async () => {
 		race();
-		return getMax(deers, 'stars');
+		return getMax(input, 'stars');
 	};
 
 	if (part === 1) return await part1();

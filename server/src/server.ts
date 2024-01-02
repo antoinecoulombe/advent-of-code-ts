@@ -1,5 +1,5 @@
-import express from 'express';
 import 'dotenv/config';
+import express from 'express';
 import { fileExists, readFile } from './FileHandler.js';
 import { isDayValid, isNumeric, isPartValid, isYearValid } from './Validation.js';
 
@@ -26,6 +26,7 @@ app.get('/solve/:year/:day/:part', async (req, res) => {
 
 	try {
 		const result = await eval((await readFile(solutionsPath))! + `puzzle_${year}_${day}(${part});`);
+		console.log(`result for ${day}/12/${year} part ${part}: ${result}`);
 		res.json(result);
 	} catch (err) {
 		console.log(err);

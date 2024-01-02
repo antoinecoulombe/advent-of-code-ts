@@ -3,7 +3,7 @@
 	"description": "Antoine's Advent Of Code - Server",
 	"author": "Antoine Coulombe",
 	"version": "1.0.0",
-	"main": "server.ts",
+	"main": "server.js",
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
