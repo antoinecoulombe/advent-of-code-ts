@@ -1,5 +1,4 @@
-const puzzle_2023_3 = async (part: number) => {
-	const input = `.......................661.........................485..565.......344.......325.....................................841.....725.............
+.......................661.........................485..565.......344.......325.....................................841.....725.............
 ....*609..131................512.......................*................536*..............462/..-...60..424.........@....$.*................
 .316.........*.......39..................@.630......377........919...........98................789..*..*..............788..2.......=..564...
 ...........431...535...*...............622.-..../.................*..........*.......682...........108.116....@...-...............299.......
@@ -138,59 +137,4 @@ const puzzle_2023_3 = async (part: number) => {
 ..........................................772.272......................134.........*..374.........*............573........*.......*.........
 934..231.....*....821...230.....981..............%........707..370....*.....634%..787..*..........93..909..70..........199.59...490.........
 .......*....525.........-........*...747...676=..../.......*..........829...............324..952.........%...*..........................%...
-.....189.........................791.............236........687.868........................................505..............713......777....`;
-
-	const getRowNumbers = (row: string) => {
-		const regex = /\d+/g,
-			numbers = [];
-		let match;
-		while ((match = regex.exec(row)) != null) {
-			numbers.push({ number: parseInt(match[0]), start: match.index });
-		}
-		return numbers;
-	};
-
-	const hasOperator = (row: string, range: { from: number; to: number }) => {
-		const toCheck = row.substring(range.from, range.to);
-		const match = toCheck.match(/[^(.|\d)]/);
-		return !!match;
-	};
-
-	const addNumberIfValid = (
-		rows: string[],
-		rowIndex: number,
-		numberInfo: { number: number; start: number }
-	) => {
-		const { number, start } = numberInfo;
-		const range = { from: start - 1, to: start + number.toString().length + 1 };
-
-		if (
-			(rowIndex > 0 && hasOperator(rows[rowIndex - 1], range)) ||
-			hasOperator(rows[rowIndex], range) ||
-			(rowIndex < rows.length - 1 && hasOperator(rows[rowIndex + 1], range))
-		) {
-			return number;
-		}
-
-		return 0;
-	};
-
-	const part1 = async () => {
-		const rows = input.split('\n');
-		let total = 0;
-		for (let i = 0; i < rows.length; ++i) {
-			const numbers = getRowNumbers(rows[i]);
-			numbers.forEach((number) => {
-				total += addNumberIfValid(rows, i, number);
-			});
-		}
-		return total;
-	};
-
-	const part2 = async () => {
-		return '2';
-	};
-
-	if (part === 1) return await part1();
-	if (part === 2) return await part2();
-};
+.....189.........................791.............236........687.868........................................505..............713......777....
