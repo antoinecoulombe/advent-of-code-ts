@@ -3,13 +3,14 @@ import React from "react";
 import _ from "lodash";
 import { ReactSVG } from "react-svg";
 import classNames from "classnames";
+import { Part } from "./PartSelector";
 // import StarIcon from '../../css/icons/star-solid.svg';
 
 type Props = {
     year: number;
     day: number;
     title: string;
-    completedParts: 0 | 1 | 2;
+    completedParts: 0 | Part;
     color: string;
 }
 

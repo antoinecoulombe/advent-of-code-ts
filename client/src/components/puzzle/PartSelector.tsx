@@ -1,30 +1,43 @@
 import styled from "@emotion/styled";
+import classNames from "classnames";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
+
+export const defaultPart = 1;
+export type Part = 1 | 2;
 
 type Props = {
     color: string;
-    onClick: (part: 1 | 2) => void;
+    selectedPart: Part;
+    onClick: (part: Part) => void;
 }
 
-const PartSelector = ({color, onClick}: Props) => {
-    return (<Container>
-        <Text>PART</Text>
-        <Circles color={color}>
-            {_.map([1,2], (part: 1 | 2) => <Circle color={color} onClick={() => onClick(part)}>{part}</Circle>)}
-        </Circles>
-    </Container>)
+const PartSelector = ({color, selectedPart, onClick}: Props) => {
+    const handleClick = useCallback((part: Part) => {
+        onClick(part);
+    }, []);
+
+    return (
+        <Container>
+            <Text>PART</Text>
+            <Circles color={color}>
+                {_.map([1,2], (part: Part) => <Circle color={color} onClick={() => handleClick(part)} className={classNames({selected: part === selectedPart})}>{part}</Circle>)}
+            </Circles>
+        </Container>
+    )
 };
 
 const Container = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 20px;
+    font-size: 24px;
+    margin: 24px 0;
 `;
 
 const Text = styled.div`
     color: white;
+    font-weight: 700;
 `;
 
 const Circles = styled.div`
@@ -48,7 +61,7 @@ const Circle = styled.div<{color: string}>`
 
     cursor: pointer;
 
-    &:hover {
+    &:hover, &.selected {
         background-color: white;
     }
 `;

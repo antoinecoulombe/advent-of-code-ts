@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import TitleBar from './TitleBar';
 import { useMemo, useState } from 'react';
-import PartSelector from './PartSelector';
+import PartSelector, { Part, defaultPart } from './PartSelector';
 import CloseButton from '../CloseButton';
 
 export type Puzzle = {
@@ -12,7 +12,7 @@ export type Puzzle = {
 	answers: { part1?: string; part2?: string };
 	description: { part1?: string; part2?: string };
 	code?: string;
-	completedParts: 0 | 1 | 2;
+	completedParts: 0 | Part;
 	color: string;
 };
 
@@ -58,13 +58,13 @@ const PuzzleViewer = ({ year, day, onClose }: Props) => {
         return { year, day: day.day, input: 'blabla', answers: {}, description: {}, title: "Mic c'est yinc une choin", completedParts: 1, color: day.color! }
     }, [year, day]);
 
-	const [part, setPart] = useState<1 | 2>(1);
+	const [part, setPart] = useState<Part>(defaultPart);
 
 	return (
 		<PuzzleContainer  color={day.color}>
 			<PuzzleContent className={"puzzle"}>
 				<TitleBar year={data.year} day={data.day} completedParts={data.completedParts} title={data.title} color={data.color}/>
-				<PartSelector onClick={setPart} color={day.color}/>
+				<PartSelector onClick={setPart} color={day.color} selectedPart={part}/>
 				{data.description[`part${part}`] && (
 					<HeightLimiter>
 						<Text>{data.description[`part${part}`]}</Text>
