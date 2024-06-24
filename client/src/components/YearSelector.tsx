@@ -1,14 +1,22 @@
 import React, { useMemo } from 'react';
 import _ from 'lodash';
-import Squares, { SquareProps } from './Squares/Squares';
+import Squares, { SquareProps } from './squares/Squares';
 import { getRandomColors } from './utils/Colors';
-import { defaultSize } from './Squares/SquareStyled';
+import { defaultSize } from './squares/SquareStyles';
 import useSquareDimensions from '../hooks/useSquareDimensions';
 import useAocDate from '../hooks/useAocDate';
+import styled from '@emotion/styled';
 
 type Props = {
-	onClick: (year: number | null) => void;
+	onClick: (year: {year: number, color: string} | null) => void;
 };
+
+const YearsContainer = styled.div`
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+`;
 
 const YearSelector = ({ onClick }: Props) => {
 	const { yearsArray, yearHasAoc } = useAocDate();
@@ -30,18 +38,20 @@ const YearSelector = ({ onClick }: Props) => {
 				text: `${year}`,
 				backgroundColor: yearsColor[index],
 				disabled: !yearHasAoc(year),
-				onClick: () => onClick(year),
+				onClick: () => onClick({year, color: yearsColor[index]}),
 				onCancel: () => onClick(null),
 			})),
 		[onClick, yearsColor, yearHasAoc, yearsArray]
 	);
 
 	return (
-		<Squares
-			squares={years}
-			width={containerDimensions.width}
-			height={containerDimensions.height}
-		/>
+		<YearsContainer className={"year-selector"}>
+			<Squares
+				squares={years}
+				width={containerDimensions.width}
+				height={containerDimensions.height}
+			/>
+		</YearsContainer>
 	);
 };
 

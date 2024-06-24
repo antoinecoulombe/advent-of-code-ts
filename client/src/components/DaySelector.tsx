@@ -1,27 +1,28 @@
 import React, { useCallback, useMemo } from 'react';
 import _ from 'lodash';
-import Squares, { SquareProps } from './Squares/Squares';
+import Squares, { SquareProps } from './squares/Squares';
 import { getRandomColors } from './utils/Colors';
-import { defaultSize } from './Squares/SquareStyled';
+import { defaultSize } from './squares/SquareStyles';
 import useSquareDimensions from '../hooks/useSquareDimensions';
 import useAocDate from '../hooks/useAocDate';
 import styled from '@emotion/styled';
-import { Puzzle } from './PuzzleViewer';
+import CloseButton from './CloseButton';
 
 type Props = {
-	year: number;
-	onClick: (puzzle: Puzzle | null) => void;
+	year: {year: number, color: string};
+	onClick: (props: {day: number, color: string} | null) => void;
+	onClose: () => void;
 };
 
-const DaysContainer = styled.div`
-	position: absolute;
+const DaysContainer = styled.div<{color: string}>`
+	position: fixed;
 	width: 100%;
 	height: 100%;
 	z-index: 1;
-	pointer-events: none;
+	background-color: ${props => props.color};
 `;
 
-const DaySelector = ({ year, onClick }: Props) => {
+const DaySelector = ({ year, onClick, onClose }: Props) => {
 	const { daysArray, dayHasAoc } = useAocDate();
 	const { containerDimensions, squaresPerRow } = useSquareDimensions({
 		squareWidth: defaultSize,
@@ -36,16 +37,15 @@ const DaySelector = ({ year, onClick }: Props) => {
 	);
 
 	const handleClick = useCallback(
-		(day: number | null) => {
+		(day: number | null, color?: string) => {
 			if (!day) {
 				onClick(null);
 				return;
 			}
 
-			// TODO: fetch problem info from server
-			onClick({ year, day, input: 'blabla', answers: {}, description: {} });
+			onClick({day, color: color!});
 		},
-		[onClick, year]
+		[onClick]
 	);
 
 	const days: SquareProps[] = useMemo(
@@ -54,20 +54,21 @@ const DaySelector = ({ year, onClick }: Props) => {
 				id: `day-${day}`,
 				text: `${day}`,
 				backgroundColor: daysColor[index],
-				disabled: !dayHasAoc(year, day),
-				onClick: () => handleClick(day),
+				disabled: !dayHasAoc(year.year, day),
+				onClick: () => handleClick(day,  daysColor[index]),
 				onCancel: () => handleClick(null),
 			})),
 		[daysArray, daysColor, dayHasAoc, year, handleClick]
 	);
 
 	return (
-		<DaysContainer>
+		<DaysContainer className={"day-selector"} color={year.color}>
 			<Squares
 				squares={days}
 				width={containerDimensions.width}
 				height={containerDimensions.height}
 			/>
+			<CloseButton onClick={onClose} iconColor={year.color} />
 		</DaysContainer>
 	);
 };

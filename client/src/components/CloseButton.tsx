@@ -45,7 +45,7 @@ const ButtonStyled = styled.button`
 	align-items: center;
 	transition: all 150ms;
 
-	pointer-events: none;
+	cursor: pointer;
 `;
 
 const CloseIcon = styled.span<{ iconColor?: string }>`

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React, { MouseEvent } from 'react';
-import { SquareStyled } from './SquareStyled';
+import { SquareStyled } from './SquareStyles';
 import classNames from 'classnames';
 import CloseButton from '../CloseButton';
 
@@ -36,7 +36,7 @@ const Square = ({ expanded, disabled, backgroundColor, text, onClick, onCancel }
 				backgroundColor={backgroundColor}
 				onClick={disabled || expanded ? undefined : onClick}
 			>
-				{expanded ? <CloseButton onClick={onCancel} iconColor={backgroundColor} /> : text}
+				{text}
 			</SquareStyled>
 		</SquareContainer>
 	);

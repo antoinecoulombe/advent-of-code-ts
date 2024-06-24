@@ -10,7 +10,6 @@ const SquaresContainer = styled.div<{ width: number; height: number }>`
 	height: ${(props) => props.height}px;
 	top: calc(50% - ${(props) => (props.height + 30) / 2}px);
 	left: calc(50% - ${(props) => (props.width + 30) / 2}px);
-	pointer-events: all;
 
 	&:not(.active) {
 		padding: 15px;
@@ -26,7 +25,7 @@ const SquaresContainer = styled.div<{ width: number; height: number }>`
 	}
 
 	&.active {
-		position: fixed;
+		position: absolute;
 		width: 100%;
 		height: 100%;
 		top: 0;
