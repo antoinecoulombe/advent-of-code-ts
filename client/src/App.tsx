@@ -23,7 +23,7 @@ const App = () => {
 	}, [year, day]);
 
 	return (
-		<AppContainer>
+		<AppContainer style={{backgroundColor: year?.color ?? day?.color}}>
 			{displayedNode}
 		</AppContainer>
 	);
